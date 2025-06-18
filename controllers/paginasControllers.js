@@ -1,33 +1,28 @@
-import { Testimonial } from '../models/Testimoniales.js';
-import { Viaje } from '../models/Viaje.js';
+import { Testimonial } from "../models/Testimoniales.js";
+import { Viaje } from "../models/Viaje.js";
 
 const paginaInico = async (req, res) => {
+  //Consultar viajes
 
-  //Consultar viajes 
-
-  const promiseDB = []
+  const promiseDB = [];
 
   //Se consulta a la base de datos de viajes y se lo envia a inicio
-  promiseDB.push( Viaje.findAll({limit: 3}) )
-    //Se consulta a la base de datos de Testimonio y se lo envia a inicio
-  promiseDB.push( Testimonial.findAll({limit: 3}) )
+  promiseDB.push(Viaje.findAll({ limit: 3 }));
+  //Se consulta a la base de datos de Testimonio y se lo envia a inicio
+  promiseDB.push(Testimonial.findAll({ limit: 3 }));
 
   try {
-
-    const resultado = await Promise.all(promiseDB)
+    const resultado = await Promise.all(promiseDB);
 
     res.render("inicio", {
       pagina: "Inicio",
-      clase: 'home',
-      viajes: resultado [0],
-      testimoniales: resultado [1]
+      clase: "home",
+      viajes: resultado[0],
+      testimoniales: resultado[1],
     });
-
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-
-
 };
 
 const paginaNosotros = (req, res) => {
@@ -36,28 +31,26 @@ const paginaNosotros = (req, res) => {
   });
 };
 
-const paginaViajes = async  (req, res) => {
-    // CONSULTAR A LA BASE DE BATOS
-    const viajes = await Viaje.findAll();
-    
+const paginaViajes = async (req, res) => {
+  // CONSULTAR A LA BASE DE BATOS
+  const viajes = await Viaje.findAll();
+
   res.render("viajes", {
     pagina: "Proximo",
-    viajes
-    
+    viajes,
   });
 };
 
-const paginaTestimoniales =  async (req, res) => {
-
+const paginaTestimoniales = async (req, res) => {
   try {
     const testimoniales = await Testimonial.findAll();
 
     res.render("testimoniales", {
-    pagina: "Testimoniales",
-    testimoniales
+      pagina: "Testimoniales",
+      testimoniales,
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 
@@ -68,9 +61,9 @@ const paginaDetalleViaje = async (req, res) => {
 
   try {
     const viaje = await Viaje.findOne({ where: { slug } });
-    res.render('viaje', {
-      pagina: 'Información Viaje',
-      viaje
+    res.render("viaje", {
+      pagina: "Información Viaje",
+      viaje,
     });
   } catch (error) {
     console.log(error);
@@ -78,10 +71,9 @@ const paginaDetalleViaje = async (req, res) => {
 };
 
 export {
-    paginaInico, 
-    paginaNosotros,
-    paginaViajes, 
-    paginaTestimoniales,
-    paginaDetalleViaje
-    
-}
+  paginaInico,
+  paginaNosotros,
+  paginaViajes,
+  paginaTestimoniales,
+  paginaDetalleViaje,
+};

@@ -15,7 +15,7 @@ db.authenticate()
     });
 
 // Difinir puerto
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 // Hablitar pug
 app.set('view engine', 'pug');
